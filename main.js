@@ -5,7 +5,7 @@ var playerDirection = 0;
 var playerX;
 var playerZ;
 
-var map = floor1;
+var map = [];
 
 var sprites = [];
 
@@ -18,6 +18,7 @@ function loadTexture(textureName) {
 
 function makeMaterial(textureName, transparent) {
     var materials = [],
+        material,
         texture;
 
     transparent = transparent || false;
@@ -35,7 +36,10 @@ function makeMaterial(textureName, transparent) {
         texture.magFilter = THREE.NearestFilter;
         texture.minFilter = THREE.LinearMipMapLinearFilter;
 
-        return new THREE.MeshBasicMaterial({map: texture, transparent: transparent});
+        material = new THREE.MeshBasicMaterial({map: texture, transparent: transparent});
+        material.alphaTest = .9;
+
+        return material;
     }
 }
 
@@ -52,57 +56,67 @@ function init() {
 
     window.addEventListener( 'resize', onWindowResize, false );
 
-    buildMap();
+    buildMap(floor1, floor1Assets);
 }
 
-function buildMap() {
+function buildMap(data, assets) {
     var x,
         z,
-        mapWidth = map[0].length,
-        mapHeight = map.length,
+        mapWidth = data[0].length,
+        mapHeight = data.length,
         mesh,
+        asset,
         tile,
         wallGeometry = new THREE.BoxGeometry(200, 400, 200),
         spriteGeometry = new THREE.PlaneGeometry(200, 400);
 
+    map = [];
     for (z = 0; z < mapHeight; z ++) {
+        map[z] = [];
         for (x = 0; x < mapWidth; x ++) {
-            tile = map[z][x];
+            asset = assets[data[z][x]];
 
-            if (tile.type == 'wall') {
-                mesh = new THREE.Mesh(wallGeometry, makeMaterial(tile.texture));
+            tile = {'type': asset.type};
+
+            if (asset.type == 'wall') {
+                mesh = new THREE.Mesh(wallGeometry, makeMaterial(asset.texture));
                 mesh.position.set(x * 200, 0, z * 200);
 
                 scene.add(mesh);
             }
-            else if (tile.type == 'player') {
+            else if (asset.type == 'player') {
                 playerX = x;
                 playerZ = z;
                 camera.position.set(x * 200, 0, z * 200);
 
                 tile.type = 'open';
             }
-            else if (map[z][x].type == 'sprite') {
-                mesh = new THREE.Mesh(spriteGeometry, makeMaterial(tile.texture, true));
+            else if (asset.type == 'sprite') {
+                mesh = new THREE.Mesh(spriteGeometry, makeMaterial(asset.texture, true));
                 mesh.position.set(x * 200, 0, z * 200);
 
-                tile.mesh = mesh;
                 sprites.push(tile);
 
                 scene.add(mesh);
             }
 
-            if (tile.floor) {
-                mesh = new THREE.Mesh(wallGeometry, makeMaterial(tile.floor));
+            if (mesh) {
+                tile.mesh = mesh;
+            }
+
+            if (asset.floor) {
+                mesh = new THREE.Mesh(wallGeometry, makeMaterial(asset.floor));
                 mesh.position.set(x * 200, -400, z * 200);
                 scene.add(mesh);
             }
 
-            if (tile.ceiling) {
-                mesh = new THREE.Mesh(wallGeometry, makeMaterial(tile.ceiling));
+            if (asset.ceiling) {
+                mesh = new THREE.Mesh(wallGeometry, makeMaterial(asset.ceiling));
                 mesh.position.set(x * 200, 400, z * 200);
                 scene.add(mesh);
             }
+
+            map[z][x] = tile;
         }
     }
 }

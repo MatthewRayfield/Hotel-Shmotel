@@ -1,5 +1,5 @@
-(function () {
-    var b = { // bellhop
+var floor1Assets = {
+    'b': { // bellhop
         'type': 'sprite',
         'texture': 'bellhop-1',
         'animation': [
@@ -14,8 +14,8 @@
         ],
         'floor': 'floor',
         'ceiling': 'ceiling'
-    };
-    var w = {
+    },
+    'w': {
         'type': 'wall',
         'texture': [
             'tallwall', // e
@@ -25,29 +25,34 @@
             'tallwall', // s
             'tallwall' // n
         ]
-    };
-    var o = {
+    },
+    ' ': {
         'type': 'open',
         'floor': 'floor',
         'ceiling': 'ceiling'
-    };
-    var p = {
+    },
+    'p': {
         'type': 'player',
         'floor': 'floor',
         'ceiling': 'ceiling'
-    };
+    },
+    'l': {
+        'type': 'sprite',
+        'texture': 'plant',
+        'floor': 'floor',
+        'ceiling': 'ceiling'
+    }
+};
 
-    window.floor1 = [
-        [w, w, w, w, w,  w, w, w, w, w],
-        [w, o, o, o, o,  o, o, o, o, w],
-        [w, o, o, w, w,  w, w, o, o, w],
-        [w, o, o, w, o,  o, w, o, o, w],
-        [w, o, o, w, o,  o, w, o, o, w],
-
-        [w, o, o, w, o,  b, w, o, o, w],
-        [w, o, o, w, o,  o, w, o, o, w],
-        [w, o, o, o, o,  o, o, o, o, w],
-        [w, o, o, o, p,  o, o, o, o, w],
-        [w, w, w, w, w,  w, w, w, w, w],
-    ];
-})();
+var floor1 = [
+    'wwwwwwwwww',
+    'w        w',
+    'w  wwww  w',
+    'w  w  w  w',
+    'w  w  w  w',
+    'w  w bw  w',
+    'w  w  w  w',
+    'w     l  w',
+    'w   p   lw',
+    'wwwwwwwwww'
+];
