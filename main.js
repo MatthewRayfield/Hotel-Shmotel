@@ -1,91 +1,110 @@
 var camera, scene, renderer;
-var map = [
-    [1, 1, 1, 1, 1,  1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0,  0, 0, 0, 0, 1],
-    [1, 0, 0, 1, 1,  1, 1, 0, 0, 1],
-    [1, 0, 0, 1, 0,  0, 1, 0, 0, 1],
-    [1, 0, 0, 1, 0,  0, 1, 0, 0, 1],
 
-    [1, 0, 0, 1, 0,  0, 1, 0, 0, 1],
-    [1, 0, 0, 1, 0,  0, 1, 0, 0, 1],
-    [1, 0, 0, 0, 0,  0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 2,  0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1,  1, 1, 1, 1, 1],
-];
-var keys = {};
 var moving = false;
 var playerDirection = 0;
 var playerX;
 var playerZ;
 
+var map = floor1;
+
+var sprites = [];
+
 init();
 animate();
 
-function init() {
-    var x,
-        z,
-        mapWidth,
-        mapHeight,
-        mesh;
+function loadTexture(textureName) {
+    return THREE.ImageUtils.loadTexture('images/' + textureName + '.gif');
+}
 
+function makeMaterial(textureName, transparent) {
+    var materials = [],
+        texture;
+
+    transparent = transparent || false;
+
+    if (textureName.constructor === Array) {
+        textureName.forEach(function (textureName) {
+            materials.push(makeMaterial(textureName));
+        });
+
+        return new THREE.MeshFaceMaterial(materials);
+    }
+    else {
+        texture = loadTexture(textureName);
+        texture.anisotropy = renderer.getMaxAnisotropy();
+        texture.magFilter = THREE.NearestFilter;
+        texture.minFilter = THREE.LinearMipMapLinearFilter;
+
+        return new THREE.MeshBasicMaterial({map: texture, transparent: transparent});
+    }
+}
+
+function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    //
-
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 2500);
-    camera.position.z = 400;
 
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x222222, 0.0008);
 
-    var geometry = new THREE.BoxGeometry( 200, 200, 200 );
+    window.addEventListener( 'resize', onWindowResize, false );
 
-    var texture = THREE.ImageUtils.loadTexture( 'crate.gif' );
-    texture.anisotropy = renderer.getMaxAnisotropy();
-    texture.magFilter = THREE.NearestFilter;
-    texture.minFilter = THREE.LinearMipMapLinearFilter;
+    buildMap();
+}
 
-    var material = new THREE.MeshBasicMaterial( { map: texture } );
-
-    //
-
-    mapWidth = map[0].length;
-    mapHeight = map.length;
+function buildMap() {
+    var x,
+        z,
+        mapWidth = map[0].length,
+        mapHeight = map.length,
+        mesh,
+        tile,
+        wallGeometry = new THREE.BoxGeometry(200, 400, 200),
+        spriteGeometry = new THREE.PlaneGeometry(200, 400);
 
     for (z = 0; z < mapHeight; z ++) {
         for (x = 0; x < mapWidth; x ++) {
-            if (map[z][x] == 1) {
-                mesh = new THREE.Mesh( geometry, material );
+            tile = map[z][x];
 
+            if (tile.type == 'wall') {
+                mesh = new THREE.Mesh(wallGeometry, makeMaterial(tile.texture));
                 mesh.position.set(x * 200, 0, z * 200);
 
-                scene.add( mesh );
+                scene.add(mesh);
             }
-            else if (map[z][x] == 2) {
+            else if (tile.type == 'player') {
                 playerX = x;
                 playerZ = z;
                 camera.position.set(x * 200, 0, z * 200);
-                map[z][x] = 0;
+
+                tile.type = 'open';
+            }
+            else if (map[z][x].type == 'sprite') {
+                mesh = new THREE.Mesh(spriteGeometry, makeMaterial(tile.texture, true));
+                mesh.position.set(x * 200, 0, z * 200);
+
+                tile.mesh = mesh;
+                sprites.push(tile);
+
+                scene.add(mesh);
             }
 
-            if (map[z][x] == 0) {
-                mesh = new THREE.Mesh( geometry );
-                mesh.position.set(x * 200, 200, z * 200);
-                scene.add( mesh );
+            if (tile.floor) {
+                mesh = new THREE.Mesh(wallGeometry, makeMaterial(tile.floor));
+                mesh.position.set(x * 200, -400, z * 200);
+                scene.add(mesh);
+            }
 
-                mesh = new THREE.Mesh( geometry );
-                mesh.position.set(x * 200, -200, z * 200);
-                scene.add( mesh );
+            if (tile.ceiling) {
+                mesh = new THREE.Mesh(wallGeometry, makeMaterial(tile.ceiling));
+                mesh.position.set(x * 200, 400, z * 200);
+                scene.add(mesh);
             }
         }
     }
-
-    //
-
-    window.addEventListener( 'resize', onWindowResize, false );
 }
 
 function onWindowResize() {
@@ -101,13 +120,28 @@ function animate() {
     //mesh.rotation.x += 0.005;
     //mesh.rotation.y += 0.01;
 
+    sprites.forEach(function (sprite) {
+        var f = Math.floor((new Date()).getTime() / 300),
+            texture;
+
+        sprite.mesh.lookAt(camera.position);
+
+        if (sprite.animation) {
+            texture = loadTexture(sprite.animation[f % sprite.animation.length]);
+            texture.anisotropy = renderer.getMaxAnisotropy();
+            texture.magFilter = THREE.NearestFilter;
+            texture.minFilter = THREE.LinearFilter;
+
+            sprite.mesh.material.map = texture;
+            sprite.mesh.material.needsUpdate = true;
+        }
+    });
+
     renderer.render( scene, camera );
 }
 
 document.addEventListener('keydown', function (event) {
     var key = event.which;
-
-    console.log(event.which);
 
     if (key == 38) {
         if (playerDirection == 0) slowMove(0, -1);
@@ -128,6 +162,10 @@ document.addEventListener('keydown', function (event) {
     if (key == 39) {
         slowRotate(-1);
     }
+
+    if (key == 32) {
+        console.log('SPACE');
+    }
 });
 
 function slowMove(axis, direction) {
@@ -138,11 +176,11 @@ function slowMove(axis, direction) {
     if (moving) return;
 
     if (axis) {
-        if (map[playerZ][playerX + direction]) return;
+        if (map[playerZ][playerX + direction].type != 'open') return;
         playerX += direction;
     }
     else {
-        if (map[playerZ + direction][playerX]) return;
+        if (map[playerZ + direction][playerX].type != 'open') return;
         playerZ += direction;
     }
 
@@ -195,13 +233,3 @@ function slowRotate(direction) {
     moving = true;
     add();
 }
-
-/*document.addEventListener('keydown', function (event) {
-    console.log(event.which);
-
-    keys[event.which] = true;
-});
-
-document.addEventListener('keyup', function (event) {
-    keys[event.which] = false;
-});*/
