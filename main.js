@@ -210,6 +210,9 @@ function buildMap(data, assets) {
 
                     sprites.push(tile);
                 }
+                else {
+                    tile.solid = false;
+                }
             }
 
             if (mesh) {

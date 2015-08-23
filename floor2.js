@@ -86,9 +86,14 @@ var floor2Assets = {
         'type': 'wall',
         'texture': 'door',
         'action': function () {
-            runDialogue([
-                ['It\'s locked.']
-            ]);
+            if (flags['havekey']) {
+                warp(janitor2, janitor2Assets, 2, 2, 0);
+            }
+            else {
+                runDialogue([
+                    ['It\'s locked.']
+                ]);
+            }
         },
         'solid': true
     },

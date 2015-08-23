@@ -105,30 +105,30 @@ var brendaroomAssets = {
                 'brenda-blink',
             ];
 
-            if (!flags['brenda1']) {
+            if (flags['havered']) {
                 runDialogue(
                     [
-                        ['Oh hehehe. My darlings are so taken with your lovely green hands.', 'brenda-1'],
-                        ['They said no pets. But I just can\'t live without my sweeties.', 'brenda-2'],
-                        ['Leave? No, this is our home now. Look how they love it here.', 'brenda-3'],
+                        ['Bahh! You\'ve startled my darlings with those ghastly red hands!', 'brenda-5'],
+                        ['Come on sweeties! We\'re going back to Florida!', 'brenda-6'],
                     ],
                     function () {
-                        flags['brenda1'] = true;
+                        flags['brendagone'] = true;
+                        shrinkAway(self.mesh);
+
                         self.animation = orig;
                     }
                 );
             }
             else {
-                if (flags['havered']) {
+                if (!flags['brenda1']) {
                     runDialogue(
                         [
-                            ['Bahh! You\'ve startled my darlings with those ghastly red hands!', 'brenda-5'],
-                            ['Come on sweeties! We\'re going back to Florida!', 'brenda-6'],
+                            ['Oh hehehe. My darlings are so taken with your lovely green hands.', 'brenda-1'],
+                            ['They said no pets. But I just can\'t live without my sweeties.', 'brenda-2'],
+                            ['Leave? No, this is our home now. Look how they love it here.', 'brenda-3'],
                         ],
                         function () {
-                            flags['brendagone'] = true;
-                            shrinkAway(self.mesh);
-
+                            flags['brenda1'] = true;
                             self.animation = orig;
                         }
                     );
@@ -206,7 +206,24 @@ var brendaroomAssets = {
         'ceiling': 'ceiling',
         'solid': true,
         'addon': 'high-cat-1',
-        'hideif': 'brendagone'
+        'hideif': 'havekey',
+        'action': function () {
+            var self = this;
+
+            if (!flags['brendagone'] || flags['havekey']) return;
+
+            runDialogue(
+                [
+                    ['Meow.', 'meow-1'],
+                    ['You found a key!', ''],
+                    ['Meow.', 'meow-2'],
+                ],
+                function () {
+                    flags['havekey'] = true;
+                    shrinkAway(self.mesh);
+                }
+            );
+        }
     },
     '1': {
         'type': 'sprite',

@@ -105,31 +105,31 @@ var danroomAssets = {
                 'dan-blink',
             ];
 
-            if (!flags['dan1']) {
+            if (flags['haveteeth']) {
                 runDialogue(
                     [
-                        ['Huh?! What\'chu want??', 'dan-1'],
-                        ['Dirty?! Look, this place was dirty before I got here...', 'dan-2'],
-                        ['Leave?! Why?', 'dan-3'],
-                        ['Scared?! Of you? You don\'t even have any teeth.', 'dan-4'],
+                        ['WaAhH!? THoSE TeeTH!', 'dan-6'],
+                        ['OKaY ALRiGHT, i\'M OuTTa HeRE!', 'dan-7'],
                     ],
                     function () {
-                        flags['dan1'] = true;
+                        flags['dangone'] = true;
+                        shrinkAway(self.mesh);
+
                         self.animation = orig;
                     }
                 );
             }
             else {
-                if (flags['haveteeth']) {
+                if (!flags['dan1']) {
                     runDialogue(
                         [
-                            ['WaAhH!? THoSE TeeTH!', 'dan-6'],
-                            ['OKaY ALRiGHT, i\'M OuTTa HeRE!', 'dan-7'],
+                            ['Huh?! What\'chu want??', 'dan-1'],
+                            ['Dirty?! Look, this place was dirty before I got here...', 'dan-2'],
+                            ['Leave?! Why?', 'dan-3'],
+                            ['Scared?! Of you? You don\'t even have any teeth.', 'dan-4'],
                         ],
                         function () {
-                            flags['dangone'] = true;
-                            shrinkAway(self.mesh);
-
+                            flags['dan1'] = true;
                             self.animation = orig;
                         }
                     );
