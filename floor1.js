@@ -105,16 +105,32 @@ var floor1Assets = {
                 'bellhop-blink',
             ];
 
-            runDialogue(
-                [
-                    ['Oh... Hey there!', 'bellhop-1'],
-                    ['So glad you could make it.', 'bellhop-2'],
-                    ['You came highly recommended.', 'bellhop-3']
-                ],
-                function () {
-                    sprite.animation = orig;
-                }
-            );
+            if (!flags['bellhop1']) {
+                runDialogue(
+                    [
+                        ['Oh... Hey there!', 'bellhop-1'],
+                        ['So glad you could make it.', 'bellhop-2'],
+                        ['You came highly recommended.', 'bellhop-3'],
+                        ['We\'ve got 3 guests, that we just can\'t take anymore.', 'bellhop-4'],
+                        ['We need your expertise to clear them out.', 'bellhop-5'],
+                        ['But, we\'re a little short staffed, so if you need anything, just look around.', 'bellhop-6'],
+                    ],
+                    function () {
+                        flags['bellhop1'] = true;
+                        sprite.animation = orig;
+                    }
+                );
+            }
+            else {
+                runDialogue(
+                    [
+                        ['Let me know when you\'re done.', 'bellhop-7'],
+                    ],
+                    function () {
+                        sprite.animation = orig;
+                    }
+                );
+            }
         }
     },
     'g': {
