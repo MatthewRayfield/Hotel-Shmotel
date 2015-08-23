@@ -27,6 +27,8 @@ var handl;
 
 var waitingForKey;
 
+var flags = {};
+
 var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 init();
@@ -41,6 +43,7 @@ window.onload = function () {
 
     warp(floor1, floor1Assets, 3, 6, 0);
     //warp(danroom, danroomAssets, 2, 4, 0);
+    //warp(teethroom, teethroomAssets, 2, 4, 0);
 };
 
 function loadTexture(textureName) {
@@ -178,18 +181,23 @@ function buildMap(data, assets) {
                 scene.add(mesh);
                 meshes.push(mesh);
 
-                if (asset.addon) {
-                    mesh = new THREE.Mesh(spriteGeometry, makeMaterial(asset.addon, true));
+                mesh = null;
+                if (!asset.hideif || !flags[asset.hideif]) {
+                    if (asset.addon) {
+                        mesh = new THREE.Mesh(spriteGeometry, makeMaterial(asset.addon, true));
+                        mesh.position.set(x * 200, 0, z * 200);
+
+                        sprites.push(tile);
+                    }
+                }
+            }
+            else if (asset.type == 'sprite') {
+                if (!asset.hideif || !flags[asset.hideif]) {
+                    mesh = new THREE.Mesh(spriteGeometry, makeMaterial(asset.texture, true));
                     mesh.position.set(x * 200, 0, z * 200);
 
                     sprites.push(tile);
                 }
-            }
-            else if (asset.type == 'sprite') {
-                mesh = new THREE.Mesh(spriteGeometry, makeMaterial(asset.texture, true));
-                mesh.position.set(x * 200, 0, z * 200);
-
-                sprites.push(tile);
             }
 
             if (mesh) {
@@ -318,14 +326,18 @@ function slowMove(axis, direction) {
     if (axis) {
         tile = map[playerZ][playerX + direction];
         if (!tile) return;
-        if (tile.action) tile.action();
+        if (tile.action) {
+            tile.action.call(tile);
+        }
         if (tile.solid) return;
         playerX += direction;
     }
     else {
         tile = map[playerZ + direction][playerX];
         if (!tile) return;
-        if (tile.action) tile.action();
+        if (tile.action) {
+            tile.action.call(tile);
+        }
         if (tile.solid) return;
         playerZ += direction;
     }
@@ -476,4 +488,22 @@ function setupTouches() {
         event.preventDefault();
         keydown({which: 39});
     });
+}
+
+function shrinkAway(mesh) {
+    var i = 10;
+
+    function shrink() {
+        if (i) {
+            mesh.scale.set(i*.1, i*.1, i*.1);
+            mesh.position.y = (10-i) * 20;
+            i --;
+            setTimeout(shrink, 50);
+        }
+        else {
+            scene.remove(mesh);
+        }
+    }
+
+    shrink();
 }

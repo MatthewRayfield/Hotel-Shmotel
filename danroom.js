@@ -89,7 +89,64 @@ var danroomAssets = {
         ],
         'floor': 'floor',
         'ceiling': 'ceiling',
-        'solid': true
+        'solid': true,
+        'action': function () {
+            var self = this,
+                orig = self.animation;
+
+            if (flags['dangone']) return;
+
+            self.animation = [
+                'dan-2',
+                'dan-talk',
+                'dan-2',
+                'dan-talk',
+                'dan-2',
+                'dan-blink',
+            ];
+
+            if (!flags['dan1']) {
+                runDialogue(
+                    [
+                        ['Huh?! What\'chu want??', ''],
+                        ['Dirty?! Look, this place was dirty before I got here...', ''],
+                        ['Leave?! Why?', ''],
+                        ['Scared?! Of you? You don\'t even have any teeth.', ''],
+                    ],
+                    function () {
+                        flags['dan1'] = true;
+                        self.animation = orig;
+                    }
+                );
+            }
+            else {
+                if (flags['haveteeth']) {
+                    runDialogue(
+                        [
+                            ['WaAhH!? THoSE TeeTH!', ''],
+                            ['OKaY OKaY, i\'M OuTTa HeRE!', ''],
+                        ],
+                        function () {
+                            flags['dangone'] = true;
+                            shrinkAway(self.mesh);
+
+                            self.animation = orig;
+                        }
+                    );
+                }
+                else {
+                    runDialogue(
+                        [
+                            ['Huh?! You might be scarier with some teeth...', ''],
+                        ],
+                        function () {
+                            self.animation = orig;
+                        }
+                    );
+                }
+            }
+        },
+        'hideif': 'dangone'
     },
     'b': {
         'type': 'short',
