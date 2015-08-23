@@ -13,7 +13,8 @@ var floor1Assets = {
             'bellhop-2'
         ],
         'floor': 'floor',
-        'ceiling': 'ceiling'
+        'ceiling': 'ceiling',
+        'solid': true
     },
     'w': {
         'type': 'wall',
@@ -24,7 +25,110 @@ var floor1Assets = {
             'floor', // ?
             'tallwall', // s
             'tallwall' // n
-        ]
+        ],
+        'solid': true
+    },
+    'n': {
+        'type': 'wall',
+        'texture': 'mailslots-left',
+        'solid': true
+    },
+    'm': {
+        'type': 'wall',
+        'texture': 'mailslots-right',
+        'solid': true
+    },
+    'z': {
+        'type': 'wall',
+        'texture': 'doubledoor-left',
+        'solid': true
+    },
+    'x': {
+        'type': 'wall',
+        'texture': 'doubledoor-right',
+        'solid': true
+    },
+    'e': {
+        'type': 'wall',
+        'texture': 'elevator-up',
+        'action': function () {
+            warp(floor1, floor1Assets);
+        }
+    },
+    'y': {
+        'type': 'wall',
+        'texture': 'elevator-buttons',
+        'solid': true
+    },
+    'j': {
+        'type': 'wall',
+        'texture': 'whitedoor',
+        'solid': true
+    },
+    'h': {
+        'type': 'short',
+        'texture': [
+            'counter-side', // e
+            'counter-side', // w
+            'counter-top', // top
+            'counter-top', // bottom
+            'counter-side', // s
+            'counter-side' // n
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
+    'g': {
+        'type': 'short',
+        'texture': [
+            'counter-side', // e
+            'counter-side', // w
+            'guestbook', // top
+            'counter-top', // bottom
+            'counter-side', // s
+            'counter-side' // n
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true,
+        'addon': 'flower'
+    },
+    'o': {
+        'type': 'short',
+        'texture': [
+            'counter-side', // e
+            'counter-side', // w
+            'counter-top', // top
+            'counter-top', // bottom
+            'counter-side', // s
+            'counter-side' // n
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true,
+        'addon': 'phone+bell'
+    },
+    's': {
+        'type': 'short',
+        'texture': [
+            'counter-side', // e
+            'counter-side', // w
+            'counter-top', // top
+            'counter-top', // bottom
+            'counter-side', // s
+            'counter-side' // n
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true,
+        'addon': 'flower'
+    },
+    'c': {
+        'type': 'sprite',
+        'texture': 'chandelier',
+        'floor': 'floor',
+        'ceiling': 'ceiling'
     },
     ' ': {
         'type': 'open',
@@ -40,19 +144,25 @@ var floor1Assets = {
         'type': 'sprite',
         'texture': 'plant',
         'floor': 'floor',
-        'ceiling': 'ceiling'
+        'ceiling': 'ceiling',
+        'solid': true
+    },
+    'i': {
+        'type': 'sprite',
+        'texture': 'coatrack',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
     }
 };
 
 var floor1 = [
-    'wwwwwwwwww',
-    'w        w',
-    'w  wwww  w',
-    'w  w  w  w',
-    'w  w  w  w',
-    'w  w bw  w',
-    'w  w  w  w',
-    'w     l  w',
-    'w   p   lw',
-    'wwwwwwwwww'
+    'wnmwwwwwwww',
+    'w  b  jwwww',
+    'whohghwwwww',
+    'w        lw',
+    'w         e',
+    'w   c  c  y',
+    'wl pi    lw',
+    'wwxzwwwwwww'
 ];
