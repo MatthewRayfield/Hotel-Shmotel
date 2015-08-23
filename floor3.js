@@ -1,4 +1,4 @@
-var floor2Assets = {
+var floor3Assets = {
     'w': {
         'type': 'wall',
         'texture': [
@@ -15,14 +15,14 @@ var floor2Assets = {
         'type': 'wall',
         'texture': 'elevator-up',
         'action': function () {
-            warp(floor3, floor3Assets, 3, 11, 0);
+            warp(floor4, floor4Assets, 3, 11, 0);
         }
     },
     't': {
         'type': 'wall',
         'texture': 'elevator-down',
         'action': function () {
-            warp(floor1, floor1Assets, 9, 4, 1);
+            warp(floor2, floor2Assets, 4, 11, 0);
         }
     },
     'y': {
@@ -72,7 +72,7 @@ var floor2Assets = {
         'type': 'wall',
         'texture': 'whitedoor',
         'action': function () {
-            warp(danroom, danroomAssets, 2, 4, 0);
+            warp(brendaroom, brendaroomAssets, 2, 4, 0);
         }
     },
     'k': {
@@ -82,30 +82,55 @@ var floor2Assets = {
             warp(teethroom, teethroomAssets, 2, 4, 0);
         }
     },
-    'u': {
-        'type': 'wall',
-        'texture': 'door',
-        'action': function () {
-            runDialogue([
-                ['It\'s locked.']
-            ]);
-        },
-        'solid': true
+    '1': {
+        'type': 'sprite',
+        'texture': 'cat-1',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'hideif': 'brendagone',
+    },
+    '2': {
+        'type': 'sprite',
+        'texture': 'cat-2',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'hideif': 'brendagone',
+    },
+    '3': {
+        'type': 'sprite',
+        'texture': 'cat-3',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'hideif': 'brendagone',
+    },
+    '4': {
+        'type': 'sprite',
+        'texture': 'cat-4',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'hideif': 'brendagone',
+    },
+    '5': {
+        'type': 'sprite',
+        'texture': 'cat-5',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'hideif': 'brendagone',
     },
 };
 
-var floor2 = [
-    'wwwuwwww',
-    'wwl  lww',
-    'wj  c kw',
+var floor3 = [
+    'wwwwwww',
     'wwl  lww',
     'wj c  jw',
     'wwl  lww',
-    'wd  c jw',
-    'wwl  lww',
-    'wj c  jw',
+    'wd13c2jw',
+    'wwl5 lww',
+    'wj c4 jw',
     'wwl  lww',
     'wj  c jw',
+    'wwl  lww',
+    'wj c  jw',
     'wwl  lww',
     'wwytewww',
     'wwwwwwww',

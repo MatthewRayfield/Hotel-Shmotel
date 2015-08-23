@@ -52,7 +52,7 @@ var floor1Assets = {
         'type': 'wall',
         'texture': 'elevator-up',
         'action': function () {
-            warp(floor2, floor2Assets, 4, 11, 0);
+            warp(floor2, floor2Assets, 3, 11, 0);
         }
     },
     'y': {

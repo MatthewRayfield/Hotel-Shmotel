@@ -1,4 +1,4 @@
-var floor2Assets = {
+var floor4Assets = {
     'w': {
         'type': 'wall',
         'texture': [
@@ -22,7 +22,7 @@ var floor2Assets = {
         'type': 'wall',
         'texture': 'elevator-down',
         'action': function () {
-            warp(floor1, floor1Assets, 9, 4, 1);
+            warp(floor3, floor3Assets, 4, 11, 0);
         }
     },
     'y': {
@@ -75,38 +75,28 @@ var floor2Assets = {
             warp(danroom, danroomAssets, 2, 4, 0);
         }
     },
-    'k': {
-        'type': 'wall',
-        'texture': 'whitedoor',
-        'action': function () {
-            warp(teethroom, teethroomAssets, 2, 4, 0);
-        }
-    },
     'u': {
         'type': 'wall',
         'texture': 'door',
         'action': function () {
-            runDialogue([
-                ['It\'s locked.']
-            ]);
-        },
-        'solid': true
+            warp(janitor1, janitor1Assets, 2, 2, 0);
+        }
     },
 };
 
-var floor2 = [
+var floor4 = [
     'wwwuwwww',
     'wwl  lww',
-    'wj  c kw',
-    'wwl  lww',
-    'wj c  jw',
-    'wwl  lww',
-    'wd  c jw',
+    'wj  c jw',
     'wwl  lww',
     'wj c  jw',
     'wwl  lww',
     'wj  c jw',
     'wwl  lww',
-    'wwytewww',
+    'wj c  jw',
+    'wwl  lww',
+    'wj  c jw',
+    'wwl  lww',
+    'wwytwwww',
     'wwwwwwww',
 ];

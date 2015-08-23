@@ -44,6 +44,8 @@ window.onload = function () {
     warp(floor1, floor1Assets, 3, 6, 0);
     //warp(danroom, danroomAssets, 2, 4, 0);
     //warp(teethroom, teethroomAssets, 2, 4, 0);
+    //warp(brendaroom, brendaroomAssets, 2, 4, 0);
+    //warp(floor4, floor4Assets, 3, 11, 0);
 };
 
 function loadTexture(textureName) {
@@ -134,7 +136,12 @@ function clean() {
     map = [];
     sprites = [];
 
-    handl = new THREE.Mesh(spriteGeometry, makeMaterial('left-hand', true));
+    if (flags['havered']) {
+        handl = new THREE.Mesh(spriteGeometry, makeMaterial('left-red', true));
+    }
+    else {
+        handl = new THREE.Mesh(spriteGeometry, makeMaterial('left-hand', true));
+    }
     handl.position.z = -20;
     handl.position.y = -7;
     handl.position.x = -8;
@@ -143,7 +150,12 @@ function clean() {
     handl.scale.set(.05, .05, .05)
     camera.add(handl);
 
-    handr = new THREE.Mesh(spriteGeometry, makeMaterial('right-hand', true));
+    if (flags['havered']) {
+        handr = new THREE.Mesh(spriteGeometry, makeMaterial('right-red', true));
+    }
+    else {
+        handr = new THREE.Mesh(spriteGeometry, makeMaterial('right-hand', true));
+    }
     handr.position.z = -20;
     handr.position.y = -7;
     handr.position.x = 8;
