@@ -1,6 +1,6 @@
 var camera, scene, renderer;
 
-var moving = false;
+var movementLocked = false;
 var playerDirection = 0;
 var playerX;
 var playerZ;
@@ -19,12 +19,20 @@ var wallGeometry = new THREE.BoxGeometry(200, 400, 200),
     spriteGeometry = new THREE.PlaneGeometry(200, 400);
 
 var fader;
+var textbox;
+var textboxInner;
+
+var waitingForKey;
 
 init();
 animate();
 
 window.onload = function () {
     fader = document.getElementById('fader');
+    textbox = document.getElementById('textbox');
+    textboxInner = document.getElementById('textbox-inner');
+
+    warp(floor1, floor1Assets, 3, 6, 0);
 };
 
 function loadTexture(textureName) {
@@ -76,14 +84,12 @@ function init() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 2500);
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 5000);
 
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x222222, 0.0008);
 
     window.addEventListener( 'resize', onWindowResize, false );
-
-    buildMap(floor1, floor1Assets);
 }
 
 function clean() {
@@ -146,13 +152,6 @@ function buildMap(data, assets) {
 
                     sprites.push(tile);
                 }
-            }
-            else if (asset.type == 'player') {
-                playerX = x;
-                playerZ = z;
-                playerDirection = 0;
-                camera.rotation.y = 0;
-                camera.position.set(x * 200, 0, z * 200);
             }
             else if (asset.type == 'sprite') {
                 mesh = new THREE.Mesh(spriteGeometry, makeMaterial(asset.texture, true));
@@ -227,6 +226,11 @@ function animate() {
 document.addEventListener('keydown', function (event) {
     var key = event.which;
 
+    if (waitingForKey) {
+        waitingForKey();
+        return;
+    }
+
     if (key == 38) {
         if (playerDirection == 0) slowMove(0, -1);
         if (playerDirection == 3) slowMove(1, 1);
@@ -258,16 +262,18 @@ function slowMove(axis, direction) {
         increment = units / i,
         tile;
 
-    if (moving) return;
+    if (movementLocked) return;
 
     if (axis) {
         tile = map[playerZ][playerX + direction];
+        if (!tile) return;
         if (tile.action) tile.action();
         if (tile.solid) return;
         playerX += direction;
     }
     else {
         tile = map[playerZ + direction][playerX];
+        if (!tile) return;
         if (tile.action) tile.action();
         if (tile.solid) return;
         playerZ += direction;
@@ -287,11 +293,11 @@ function slowMove(axis, direction) {
             setTimeout(add, 10);
         }
         else {
-            moving = false;
+            movementLocked = false;
         }
     }
 
-    moving = true;
+    movementLocked = true;
     add();
 }
 
@@ -300,7 +306,7 @@ function slowRotate(direction) {
         radians = Math.PI / 180 * (90 * direction),
         increment = radians / i;
 
-    if (moving) return;
+    if (movementLocked) return;
 
     playerDirection += direction;
     if (playerDirection < 0) playerDirection = 3;
@@ -315,15 +321,15 @@ function slowRotate(direction) {
             setTimeout(add, 10);
         }
         else {
-            moving = false;
+            movementLocked = false;
         }
     }
 
-    moving = true;
+    movementLocked = true;
     add();
 }
 
-function warp(data, assets) {
+function warp(data, assets, pX, pZ, pD) {
     fader.style.animationName = 'fade';
     fader.style.webkitAnimationName = 'fade';
 
@@ -333,7 +339,65 @@ function warp(data, assets) {
     }, 1000);
 
     setTimeout(function () {
+        playerX = pX;
+        playerZ = pZ;
+        playerDirection = pD;
+        camera.rotation.y = Math.PI / 180 * 90* pD;
+        camera.position.set(pX * 200, 0, pZ * 200);
+
         clean();
         buildMap(data, assets);
     }, 500);
+}
+
+function runDialogue(segments, callback) {
+    var i = 0,
+        audio;
+
+    movementLocked = true;
+
+    function show() {
+        textbox.style.opacity = 1;
+        textboxInner.innerHTML = segments[i][0];
+
+        textboxInner.style.opacity = '1';
+        textboxInner.style.animationName = 'opentext';
+        textboxInner.style.webkitAnimationName = 'opentext';
+
+        if (segments[i][1]) {
+            audio = playSound(segments[i][1]);
+        }
+
+        waitingForKey = function () {
+            waitingForKey = null;
+
+            if (audio) {
+                audio.pause();
+            }
+
+            i ++;
+
+            textboxInner.style.opacity = '0';
+            textboxInner.style.animationName = 'closetext';
+            textboxInner.style.webkitAnimationName = 'closetext';
+
+            if (i < segments.length) {
+                setTimeout(show, 500);
+            }
+            else {
+                if (callback) callback();
+                movementLocked = false;
+            }
+        };
+    }
+
+    show();
+}
+
+function playSound(fileName) {
+    var audio = new Audio('sounds/' + fileName + '.mp3');
+
+    audio.play();
+
+    return audio;
 }

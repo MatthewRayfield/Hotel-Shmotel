@@ -34,13 +34,54 @@
                 -webkit-animation-duration: 1s;
                 -webkit-animation-timing-function: ease-in-out;
             }
+            @keyframes opentext {
+                0% {opacity: 0}
+                100% {opacity: 1}
+            }
+            @-webkit-keyframes opentext {
+                0% {opacity: 0}
+                100% {opacity: 1}
+            }
+            @keyframes closetext {
+                0% {opacity: 1}
+                100% {opacity: 0}
+            }
+            @-webkit-keyframes closetext {
+                0% {opacity: 1}
+                100% {opacity: 0}
+            }
+            #textbox {
+                position: absolute;
+                top: 10%;
+                left: 0;
+                width: 100%;
+                z-index: 1;
+                text-align: center;
+                font: 40px monospace;
+                color: white;
+                text-shadow: 0px 0px 10px #000;
+            }
+            #textbox-inner {
+                background: rgba(0, 0, 0, .3);
+                padding: 20px;
+                border-radius: 10px;
+                opacity: 0;
+                display: inline-block;
+
+                animation-duration: .5s;
+                animation-timing-function: ease-in-out;
+                -webkit-animation-duration: .5s;
+                -webkit-animation-timing-function: ease-in-out;
+            }
 		</style>
 	</head>
 	<body>
 		<script src="three.min.js"></script>
         <script src="floor1.js"></script>
+        <script src="floor2.js"></script>
         <script src="main.js"></script>
 
         <div id="fader"></div>
+        <div id="textbox"><span id="textbox-inner">Ohhh... Hey there!</span></div>
 	</body>
 </html>

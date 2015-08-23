@@ -52,7 +52,7 @@ var floor1Assets = {
         'type': 'wall',
         'texture': 'elevator-up',
         'action': function () {
-            warp(floor1, floor1Assets);
+            warp(floor2, floor2Assets, 3, 11, 0);
         }
     },
     'y': {
@@ -78,6 +78,44 @@ var floor1Assets = {
         'floor': 'floor',
         'ceiling': 'ceiling',
         'solid': true
+    },
+    't': {
+        'type': 'short',
+        'texture': [
+            'counter-side', // e
+            'counter-side', // w
+            'counter-top', // top
+            'counter-top', // bottom
+            'counter-side', // s
+            'counter-side' // n
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true,
+        'action': function () {
+            var sprite = map[1][3],
+                orig = sprite.animation;
+
+            sprite.animation = [
+                'bellhop-2',
+                'bellhop-talk',
+                'bellhop-2',
+                'bellhop-talk',
+                'bellhop-2',
+                'bellhop-blink',
+            ];
+
+            runDialogue(
+                [
+                    ['Oh... Hey there!', 'bellhop-1'],
+                    ['So glad you could make it.', 'bellhop-2'],
+                    ['You came highly recommended.', 'bellhop-3']
+                ],
+                function () {
+                    sprite.animation = orig;
+                }
+            );
+        }
     },
     'g': {
         'type': 'short',
@@ -135,11 +173,6 @@ var floor1Assets = {
         'floor': 'floor',
         'ceiling': 'ceiling'
     },
-    'p': {
-        'type': 'player',
-        'floor': 'floor',
-        'ceiling': 'ceiling'
-    },
     'l': {
         'type': 'sprite',
         'texture': 'plant',
@@ -157,12 +190,12 @@ var floor1Assets = {
 };
 
 var floor1 = [
-    'wnmwwwwwwww',
-    'w  b  jwwww',
-    'whohghwwwww',
-    'w        lw',
-    'w         e',
-    'w   c  c  y',
-    'wl pi    lw',
-    'wwxzwwwwwww'
+    'wnmwwwwwwwww',
+    'w  b  jwwwww',
+    'whotghwwwwww',
+    'w        lww',
+    'w         ew',
+    'w  c    c yw',
+    'wl  i    lww',
+    'wwxzwwwwwwww'
 ];
