@@ -108,10 +108,10 @@ var danroomAssets = {
             if (!flags['dan1']) {
                 runDialogue(
                     [
-                        ['Huh?! What\'chu want??', ''],
-                        ['Dirty?! Look, this place was dirty before I got here...', ''],
-                        ['Leave?! Why?', ''],
-                        ['Scared?! Of you? You don\'t even have any teeth.', ''],
+                        ['Huh?! What\'chu want??', 'dan-1'],
+                        ['Dirty?! Look, this place was dirty before I got here...', 'dan-2'],
+                        ['Leave?! Why?', 'dan-3'],
+                        ['Scared?! Of you? You don\'t even have any teeth.', 'dan-4'],
                     ],
                     function () {
                         flags['dan1'] = true;
@@ -123,8 +123,8 @@ var danroomAssets = {
                 if (flags['haveteeth']) {
                     runDialogue(
                         [
-                            ['WaAhH!? THoSE TeeTH!', ''],
-                            ['OKaY OKaY, i\'M OuTTa HeRE!', ''],
+                            ['WaAhH!? THoSE TeeTH!', 'dan-6'],
+                            ['OKaY ALRiGHT, i\'M OuTTa HeRE!', 'dan-7'],
                         ],
                         function () {
                             flags['dangone'] = true;
@@ -137,7 +137,7 @@ var danroomAssets = {
                 else {
                     runDialogue(
                         [
-                            ['Huh?! You might be scarier with some teeth...', ''],
+                            ['Huh?! You might be scarier with teeth...', 'dan-5'],
                         ],
                         function () {
                             self.animation = orig;
