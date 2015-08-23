@@ -22,6 +22,9 @@ var fader;
 var textbox;
 var textboxInner;
 
+var handr;
+var handl;
+
 var waitingForKey;
 
 var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -37,6 +40,7 @@ window.onload = function () {
     if (iOS) setupTouches();
 
     warp(floor1, floor1Assets, 3, 6, 0);
+    //warp(danroom, danroomAssets, 2, 4, 0);
 };
 
 function loadTexture(textureName) {
@@ -93,11 +97,17 @@ function init() {
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x222222, 0.0008);
 
+    scene.add(camera);
+
     window.addEventListener( 'resize', onWindowResize, false );
 }
 
 function clean() {
     var key;
+
+    camera.remove(handl);
+    camera.remove(handr);
+    handl = handr = null;
 
     // I can't tell if this help memory or not ; ]
 
@@ -120,6 +130,24 @@ function clean() {
     materialCache = {};
     map = [];
     sprites = [];
+
+    handl = new THREE.Mesh(spriteGeometry, makeMaterial('left-hand', true));
+    handl.position.z = -20;
+    handl.position.y = -7;
+    handl.position.x = -8;
+    handl.rotation.x = -.5;
+    handl.rotation.z = .3;
+    handl.scale.set(.05, .05, .05)
+    camera.add(handl);
+
+    handr = new THREE.Mesh(spriteGeometry, makeMaterial('right-hand', true));
+    handr.position.z = -20;
+    handr.position.y = -7;
+    handr.position.x = 8;
+    handr.rotation.x = -.5;
+    handr.rotation.z = -.3;
+    handr.scale.set(.05, .05, .05)
+    camera.add(handr);
 }
 
 function buildMap(data, assets) {
@@ -223,6 +251,22 @@ function animate() {
             sprite.mesh.material.needsUpdate = true;
         }
     });
+
+    if (handr && handl) {
+        var t = (new Date()).getTime();
+
+        handr.position.z = -20;
+        handr.position.y = -7 - (.5*Math.cos(t / 400));
+        handr.position.x = 8;
+        handr.rotation.x = -.5;
+        handr.rotation.z = -.3 - (.1*Math.sin(t / 500));
+
+        handl.position.z = -20;
+        handl.position.y = -7 - (.5*Math.cos(t / 500));
+        handl.position.x = -8;
+        handl.rotation.x = -.5;
+        handl.rotation.z = .3 + (.1*Math.sin(t / 400));
+    }
 
     renderer.render( scene, camera );
 }

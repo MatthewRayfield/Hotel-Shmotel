@@ -68,37 +68,27 @@ var floor2Assets = {
         'solid': true
     },
     'd': {
-        'type': 'sprite',
-        'texture': 'dan-1',
-        'animation': [
-            'dan-1',
-            'dan-2',
-            'dan-1',
-            'dan-2',
-            'dan-blink',
-            'dan-2',
-            'dan-1',
-            'dan-2'
-        ],
-        'floor': 'floor',
-        'ceiling': 'ceiling',
-        'solid': true
+        'type': 'wall',
+        'texture': 'whitedoor',
+        'action': function () {
+            warp(danroom, danroomAssets, 2, 4, 0);
+        }
     },
 };
 
 var floor2 = [
-    'wwwwww',
-    'wl  lw',
-    'j  c j',
-    'wl  lw',
-    'j c  j',
-    'wl  lw',
-    'jd c j',
-    'wl  lw',
-    'j c  j',
-    'wl  lw',
-    'j  c j',
-    'wl  lw',
-    'wyteww',
-    'wwwwww',
+    'wwwwwww',
+    'wwl  lw',
+    'wj  c j',
+    'wwl  lw',
+    'wj c  j',
+    'wwl  lw',
+    'wd  c j',
+    'wwl  lw',
+    'wj c  j',
+    'wwl  lw',
+    'wj  c j',
+    'wwl  lw',
+    'wwyteww',
+    'wwwwwww',
 ];
