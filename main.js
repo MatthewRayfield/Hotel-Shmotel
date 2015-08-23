@@ -24,6 +24,8 @@ var textboxInner;
 
 var waitingForKey;
 
+var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
 init();
 animate();
 
@@ -31,6 +33,8 @@ window.onload = function () {
     fader = document.getElementById('fader');
     textbox = document.getElementById('textbox');
     textboxInner = document.getElementById('textbox-inner');
+
+    if (iOS) setupTouches();
 
     warp(floor1, floor1Assets, 3, 6, 0);
 };
@@ -223,7 +227,7 @@ function animate() {
     renderer.render( scene, camera );
 }
 
-document.addEventListener('keydown', function (event) {
+function keydown (event) {
     var key = event.which;
 
     if (waitingForKey) {
@@ -254,7 +258,10 @@ document.addEventListener('keydown', function (event) {
     if (key == 32) {
         console.log('SPACE');
     }
-});
+}
+
+document.addEventListener('keydown', keydown);
+
 
 function slowMove(axis, direction) {
     var i = 20,
@@ -400,4 +407,29 @@ function playSound(fileName) {
     audio.play();
 
     return audio;
+}
+
+function setupTouches() {
+    document.getElementById('button-box').style.display = 'block';
+
+    document.getElementById('touchup').addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    });
+
+    document.getElementById('touchup').addEventListener('touchstart', function (event) {
+        event.preventDefault();
+        keydown({which: 38});
+    });
+    document.getElementById('touchdown').addEventListener('touchstart', function (event) {
+        event.preventDefault();
+        keydown({which: 40});
+    });
+    document.getElementById('touchleft').addEventListener('touchstart', function (event) {
+        event.preventDefault();
+        keydown({which: 37});
+    });
+    document.getElementById('touchright').addEventListener('touchstart', function (event) {
+        event.preventDefault();
+        keydown({which: 39});
+    });
 }

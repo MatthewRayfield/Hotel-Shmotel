@@ -3,6 +3,7 @@
 	<head>
 		<title></title>
 		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<style>
 			body {
 				margin: 0px;
@@ -73,6 +74,27 @@
                 -webkit-animation-duration: .5s;
                 -webkit-animation-timing-function: ease-in-out;
             }
+            #button-box {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                z-index: 3;
+                text-align: center;
+                display: none;
+            }
+            .touchbutton {
+                width: 50px;
+                height: 50px;
+                background: #eee;
+                border: 4px solid #333;
+                border-radius: 29px;
+                display: inline-block;
+            }
+            .touchspacer{
+                width: 58px;
+                height: 58px;
+                display: inline-block;
+            }
 		</style>
 	</head>
 	<body>
@@ -83,5 +105,10 @@
 
         <div id="fader"></div>
         <div id="textbox"><span id="textbox-inner">Ohhh... Hey there!</span></div>
+        <div id="button-box">
+            <div><span id="touchup" class="touchbutton"></span></div>
+            <div><span id="touchleft" class="touchbutton"></span><span class="touchspacer"></span><span id="touchright" class="touchbutton"></span></div>
+            <div><span id="touchdown" class="touchbutton"></span></div>
+        </div>
 	</body>
 </html>

@@ -66,7 +66,24 @@ var floor2Assets = {
         'floor': 'floor',
         'ceiling': 'ceiling',
         'solid': true
-    }
+    },
+    'd': {
+        'type': 'sprite',
+        'texture': 'dan-1',
+        'animation': [
+            'dan-1',
+            'dan-2',
+            'dan-1',
+            'dan-2',
+            'dan-blink',
+            'dan-2',
+            'dan-1',
+            'dan-2'
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
 };
 
 var floor2 = [
@@ -76,7 +93,7 @@ var floor2 = [
     'wl  lw',
     'j c  j',
     'wl  lw',
-    'j  c j',
+    'jd c j',
     'wl  lw',
     'j c  j',
     'wl  lw',
