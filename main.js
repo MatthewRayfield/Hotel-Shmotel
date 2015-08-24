@@ -27,6 +27,10 @@ var handl;
 
 var waitingForKey;
 
+var startTime = (new Date()).getTime();
+var gamewin;
+var timebox;
+
 var flags = {};
 
 var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -38,6 +42,8 @@ window.onload = function () {
     fader = document.getElementById('fader');
     textbox = document.getElementById('textbox');
     textboxInner = document.getElementById('textbox-inner');
+    gamewin = document.getElementById('gamewin');
+    timebox = document.getElementById('time');
 
     if (iOS) setupTouches();
 
@@ -46,6 +52,7 @@ window.onload = function () {
     //warp(teethroom, teethroomAssets, 2, 4, 0);
     //warp(brendaroom, brendaroomAssets, 2, 4, 0);
     //warp(floor4, floor4Assets, 3, 11, 0);
+    //warp(janitor2, janitor2Assets, 3, 3, 0);
 };
 
 function loadTexture(textureName) {

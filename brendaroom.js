@@ -2,12 +2,12 @@ var brendaroomAssets = {
     'w': {
         'type': 'wall',
         'texture': [
-            'tallwall', // e
-            'tallwall', // w
+            'yellowwall', // e
+            'yellowwall', // w
             'floor', // ?
             'floor', // ?
-            'tallwall', // s
-            'tallwall' // n
+            'yellowwall', // s
+            'yellowwall' // n
         ],
         'solid': true
     },
@@ -31,14 +31,14 @@ var brendaroomAssets = {
     },
     'j': {
         'type': 'wall',
-        'texture': 'whitedoor',
+        'texture': 'whitedoor-yellow',
         'action': function () {
             warp(floor3, floor3Assets, 2, 4, 3);
         }
     },
     'x': {
         'type': 'wall',
-        'texture': 'door',
+        'texture': 'door-yellow',
         'solid': true
     },
     's': {
@@ -69,7 +69,7 @@ var brendaroomAssets = {
     },
     'l': {
         'type': 'sprite',
-        'texture': 'plant',
+        'texture': 'plant3',
         'floor': 'floor',
         'ceiling': 'ceiling',
         'solid': true
@@ -214,9 +214,9 @@ var brendaroomAssets = {
 
             runDialogue(
                 [
-                    ['Meow.', 'meow-1'],
+                    ['Meow.', 'meow1'],
                     ['You found a key!', ''],
-                    ['Meow.', 'meow-2'],
+                    ['Meow.', 'meow2'],
                 ],
                 function () {
                     flags['havekey'] = true;

@@ -2,18 +2,18 @@ var janitor2Assets = {
     'w': {
         'type': 'wall',
         'texture': [
-            'tallwall', // e
-            'tallwall', // w
+            'graywall', // e
+            'graywall', // w
             'floor', // ?
             'floor', // ?
-            'tallwall', // s
-            'tallwall' // n
+            'graywall', // s
+            'graywall' // n
         ],
         'solid': true
     },
     'x': {
         'type': 'wall',
-        'texture': 'door',
+        'texture': 'doorgray',
         'action': function () {
             warp(floor2, floor2Assets, 3, 1, 2);
         }
@@ -22,18 +22,32 @@ var janitor2Assets = {
         'type': 'sprite',
         'texture': 'chandelier',
         'floor': 'floor',
-        'ceiling': 'ceiling'
+        'ceiling': 'bedtop'
     },
     ' ': {
         'type': 'open',
         'floor': 'floor',
-        'ceiling': 'ceiling'
+        'ceiling': 'bedtop'
     },
     'l': {
         'type': 'sprite',
         'texture': 'plant',
         'floor': 'floor',
-        'ceiling': 'ceiling',
+        'ceiling': 'bedtop',
+        'solid': true
+    },
+    '2': {
+        'type': 'sprite',
+        'texture': 'plant2',
+        'floor': 'floor',
+        'ceiling': 'bedtop',
+        'solid': true
+    },
+    '3': {
+        'type': 'sprite',
+        'texture': 'plant3',
+        'floor': 'floor',
+        'ceiling': 'bedtop',
         'solid': true
     },
     't': {
@@ -47,7 +61,7 @@ var janitor2Assets = {
             'counter-side' // n
         ],
         'floor': 'floor',
-        'ceiling': 'ceiling',
+        'ceiling': 'bedtop',
         'solid': true,
     },
     'f': {
@@ -61,7 +75,7 @@ var janitor2Assets = {
             'counter-side' // n
         ],
         'floor': 'floor',
-        'ceiling': 'ceiling',
+        'ceiling': 'bedtop',
         'solid': true,
         'addon': 'flower',
     },
@@ -79,7 +93,7 @@ var janitor2Assets = {
         'type': 'sprite',
         'texture': 'coatrack',
         'floor': 'floor',
-        'ceiling': 'ceiling',
+        'ceiling': 'bedtop',
         'solid': true
     },
     'd': {
@@ -96,7 +110,7 @@ var janitor2Assets = {
             'ned-2'
         ],
         'floor': 'floor',
-        'ceiling': 'ceiling',
+        'ceiling': 'bedtop',
         'solid': true,
         'action': function () {
             var self = this,
@@ -131,9 +145,10 @@ var janitor2Assets = {
 };
 
 var janitor2 = [
-    'wnmww',
-    'wd fw',
-    'wi lw',
-    'wwxww',
-    'wwwww',
+    'wwwwww',
+    'w   2w',
+    'wd3 lw',
+    'w3l 2w',
+    'wwwxww',
+    'wwwwww',
 ];

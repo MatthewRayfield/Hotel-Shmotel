@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title></title>
+		<title>Fetch Hotel</title>
 		<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<style>
@@ -96,6 +96,27 @@
                 height: 58px;
                 display: inline-block;
             }
+            #gamewin {
+                position: absolute;
+                top: 5%;
+                left: 15%;
+                width: 70%;
+                z-index: 4;
+                text-align: center;
+                font: 30px monospace;
+                color: white;
+                text-shadow: 0px 0px 10px #000;
+                display: none;
+            }
+            #gamewin a {
+                color: white;
+            }
+            #gamewin .inner {
+                background: rgba(0,0,200,.8);
+                display: inline-block;
+                padding: 20px;
+                border-radius: 10px;
+            }
 		</style>
 	</head>
 	<body>
@@ -117,6 +138,13 @@
             <div><span id="touchup" class="touchbutton"></span></div>
             <div><span id="touchleft" class="touchbutton"></span><span class="touchspacer"></span><span id="touchright" class="touchbutton"></span></div>
             <div><span id="touchdown" class="touchbutton"></span></div>
+        </div>
+        <div id="gamewin">
+            <span class="inner">
+                You won in <span id="time">10</span> minutes!<br>
+                Thanks for playing!<br>Please tell me what you think:<br>
+                <a target="blank" href="http://twitter.com/matthewrayfield">@MatthewRayfield</a>
+            </span>
         </div>
 	</body>
 </html>

@@ -92,7 +92,9 @@ var floor1Assets = {
         'floor': 'floor',
         'ceiling': 'ceiling',
         'solid': true,
+        //'addon': 'sandwhich',
         'action': function () {
+            var self = this;
             var sprite = map[1][3],
                 orig = sprite.animation;
 
@@ -114,6 +116,14 @@ var floor1Assets = {
                             ['One peanut butter and celery sandwhich, on whole-wheat.', 'bellhop-11'],
                         ],
                         function () {
+                            var mesh = new THREE.Mesh(spriteGeometry, makeMaterial('sandwhich', true));
+                            mesh.position.set(3 * 200, 0, 2 * 200);
+                            scene.add(mesh);
+                            setTimeout(function () {movementLocked = true}, 10);
+
+                            gamewin.style.display = 'block';
+                            timebox.innerHTML = ((new Date()).getTime() - startTime) /1000/60;
+
                             sprite.animation = orig;
                         }
                     );
@@ -211,6 +221,13 @@ var floor1Assets = {
         'ceiling': 'ceiling',
         'solid': true
     },
+    '3': {
+        'type': 'sprite',
+        'texture': 'plant3',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
     'i': {
         'type': 'sprite',
         'texture': 'coatrack',
@@ -227,6 +244,6 @@ var floor1 = [
     'w        lww',
     'w         ew',
     'w  c    c yw',
-    'wl  i    lww',
+    'w3  i    lww',
     'wwxzwwwwwwww'
 ];

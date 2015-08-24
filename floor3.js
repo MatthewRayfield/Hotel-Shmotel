@@ -2,37 +2,37 @@ var floor3Assets = {
     'w': {
         'type': 'wall',
         'texture': [
-            'tallwall', // e
-            'tallwall', // w
+            'yellowwall', // e
+            'yellowwall', // w
             'floor', // ?
             'floor', // ?
-            'tallwall', // s
-            'tallwall' // n
+            'yellowwall', // s
+            'yellowwall' // n
         ],
         'solid': true
     },
     'e': {
         'type': 'wall',
-        'texture': 'elevator-up',
+        'texture': 'elevator-up-yellow',
         'action': function () {
             warp(floor4, floor4Assets, 3, 11, 0);
         }
     },
     't': {
         'type': 'wall',
-        'texture': 'elevator-down',
+        'texture': 'elevator-down-yellow',
         'action': function () {
             warp(floor2, floor2Assets, 4, 11, 0);
         }
     },
     'y': {
         'type': 'wall',
-        'texture': 'elevator-buttons',
+        'texture': 'elevator-buttons-yellow',
         'solid': true
     },
     'j': {
         'type': 'wall',
-        'texture': 'whitedoor',
+        'texture': 'whitedoor-yellow',
         'solid': true
     },
     's': {
@@ -68,9 +68,16 @@ var floor3Assets = {
         'ceiling': 'ceiling',
         'solid': true
     },
+    'q': {
+        'type': 'sprite',
+        'texture': 'plant2',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
     'd': {
         'type': 'wall',
-        'texture': 'whitedoor',
+        'texture': 'whitedoor-yellow',
         'action': function () {
             warp(brendaroom, brendaroomAssets, 2, 4, 0);
         }
@@ -121,17 +128,17 @@ var floor3Assets = {
 
 var floor3 = [
     'wwwwwww',
-    'wwl  lww',
+    'wwl  2ww',
     'wj c  jw',
-    'wwl  lww',
+    'wwq  lww',
     'wd13c2jw',
-    'wwl5 lww',
+    'wwl5 qww',
     'wj c4 jw',
-    'wwl  lww',
+    'wwq  lww',
     'wj  c jw',
-    'wwl  lww',
+    'wwl  qww',
     'wj c  jw',
-    'wwl  lww',
+    'wwq  lww',
     'wwytewww',
     'wwwwwwww',
 ];

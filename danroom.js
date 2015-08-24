@@ -69,7 +69,7 @@ var danroomAssets = {
     },
     'l': {
         'type': 'sprite',
-        'texture': 'plant',
+        'texture': 'plant2',
         'floor': 'floor',
         'ceiling': 'ceiling',
         'solid': true
@@ -162,6 +162,20 @@ var danroomAssets = {
         'ceiling': 'ceiling',
         'solid': true
     },
+    '0': {
+        'type': 'short',
+        'texture': [
+            'bedside', // e
+            'bedside', // w
+            'bed-dirt', // top
+            'counter-top', // bottom
+            'bedside', // s
+            'bedside' // n
+        ],
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
     't': {
         'type': 'short',
         'texture': [
@@ -192,13 +206,33 @@ var danroomAssets = {
         'solid': true,
         'addon': 'flower'
     },
+    '1': {
+        'type': 'open',
+        'floor': 'dirt-1',
+        'ceiling': 'ceiling'
+    },
+    '2': {
+        'type': 'open',
+        'floor': 'dirt-2',
+        'ceiling': 'ceiling'
+    },
+    '3': {
+        'type': 'open',
+        'floor': 'dirt-3',
+        'ceiling': 'ceiling'
+    },
+    '4': {
+        'type': 'open',
+        'floor': 'dirt-4',
+        'ceiling': 'ceiling'
+    },
 };
 
 var danroom = [
     'wwwwww',
-    'wb tfw',
-    'wb d w',
-    'w c  x',
+    'w0 tfw',
+    'wb1d4w',
+    'w2c3 x',
     'w   lw',
     'wwjwww',
     'wwwwww',

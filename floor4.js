@@ -2,37 +2,37 @@ var floor4Assets = {
     'w': {
         'type': 'wall',
         'texture': [
-            'tallwall', // e
-            'tallwall', // w
+            'yellowwall', // e
+            'yellowwall', // w
             'floor', // ?
             'floor', // ?
-            'tallwall', // s
-            'tallwall' // n
+            'yellowwall', // s
+            'yellowwall' // n
         ],
         'solid': true
     },
     'e': {
         'type': 'wall',
-        'texture': 'elevator-up',
+        'texture': 'elevator-up-yellow',
         'action': function () {
             warp(floor3, floor3Assets, 3, 11, 0);
         }
     },
     't': {
         'type': 'wall',
-        'texture': 'elevator-down',
+        'texture': 'elevator-down-yellow',
         'action': function () {
             warp(floor3, floor3Assets, 4, 11, 0);
         }
     },
     'y': {
         'type': 'wall',
-        'texture': 'elevator-buttons',
+        'texture': 'elevator-buttons-yellow',
         'solid': true
     },
     'j': {
         'type': 'wall',
-        'texture': 'whitedoor',
+        'texture': 'reddoor',
         'solid': true
     },
     's': {
@@ -68,16 +68,30 @@ var floor4Assets = {
         'ceiling': 'ceiling',
         'solid': true
     },
+    '2': {
+        'type': 'sprite',
+        'texture': 'plant2',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
+    '3': {
+        'type': 'sprite',
+        'texture': 'plant3',
+        'floor': 'floor',
+        'ceiling': 'ceiling',
+        'solid': true
+    },
     'd': {
         'type': 'wall',
-        'texture': 'whitedoor',
+        'texture': 'reddoor',
         'action': function () {
             warp(danroom, danroomAssets, 2, 4, 0);
         }
     },
     'u': {
         'type': 'wall',
-        'texture': 'door',
+        'texture': 'door-yellow',
         'action': function () {
             warp(janitor1, janitor1Assets, 2, 2, 0);
         }
@@ -86,17 +100,17 @@ var floor4Assets = {
 
 var floor4 = [
     'wwwuwwww',
-    'wwl  lww',
+    'ww2  3ww',
     'wj  c jw',
-    'wwl  lww',
+    'ww3  2ww',
     'wj c  jw',
-    'wwl  lww',
+    'ww2  3ww',
     'wj  c jw',
-    'wwl  lww',
+    'ww3  2ww',
     'wj c  jw',
-    'wwl  lww',
+    'ww2  3ww',
     'wj  c jw',
-    'wwl  lww',
+    'ww3  2ww',
     'wwytwwww',
     'wwwwwwww',
 ];

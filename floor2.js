@@ -87,7 +87,7 @@ var floor2Assets = {
         'texture': 'door',
         'action': function () {
             if (flags['havekey']) {
-                warp(janitor2, janitor2Assets, 2, 2, 0);
+                warp(janitor2, janitor2Assets, 3, 3, 0);
             }
             else {
                 runDialogue([
@@ -96,6 +96,16 @@ var floor2Assets = {
             }
         },
         'solid': true
+    },
+    '1': {
+        'type': 'open',
+        'floor': 'dirt-1',
+        'ceiling': 'ceiling'
+    },
+    '2': {
+        'type': 'open',
+        'floor': 'dirt-2',
+        'ceiling': 'ceiling'
     },
 };
 
@@ -106,8 +116,8 @@ var floor2 = [
     'wwl  lww',
     'wj c  jw',
     'wwl  lww',
-    'wd  c jw',
-    'wwl  lww',
+    'wd1 c jw',
+    'wwl2 lww',
     'wj c  jw',
     'wwl  lww',
     'wj  c jw',
