@@ -277,8 +277,10 @@ function animate() {
             texture.magFilter = THREE.NearestFilter;
             texture.minFilter = THREE.LinearFilter;
 
-            sprite.mesh.material.map = texture;
-            sprite.mesh.material.needsUpdate = true;
+            if (texture.image) {
+                sprite.mesh.material.map = texture;
+                sprite.mesh.material.needsUpdate = true;
+            }
         }
     });
 
