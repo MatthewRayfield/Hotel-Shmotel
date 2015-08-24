@@ -494,19 +494,19 @@ function setupTouches() {
         event.preventDefault();
     });
 
-    document.getElementById('touchup').addEventListener('touchstart', function (event) {
+    document.getElementById('touchup').addEventListener('click', function (event) {
         event.preventDefault();
         keydown({which: 38});
     });
-    document.getElementById('touchdown').addEventListener('touchstart', function (event) {
+    document.getElementById('touchdown').addEventListener('click', function (event) {
         event.preventDefault();
         keydown({which: 40});
     });
-    document.getElementById('touchleft').addEventListener('touchstart', function (event) {
+    document.getElementById('touchleft').addEventListener('click', function (event) {
         event.preventDefault();
         keydown({which: 37});
     });
-    document.getElementById('touchright').addEventListener('touchstart', function (event) {
+    document.getElementById('touchright').addEventListener('click', function (event) {
         event.preventDefault();
         keydown({which: 39});
     });
