@@ -136,6 +136,8 @@ var janitor2Assets = {
                 function () {
                     flags['nedgone'] = true;
                     shrinkAway(self.mesh);
+                    self.solid = false;
+
                     self.animation = orig;
                 }
             );

@@ -114,6 +114,7 @@ var danroomAssets = {
                     function () {
                         flags['dangone'] = true;
                         shrinkAway(self.mesh);
+                        self.solid = false;
 
                         self.animation = orig;
                     }
