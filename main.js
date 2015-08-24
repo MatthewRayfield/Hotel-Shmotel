@@ -33,7 +33,7 @@ var timebox;
 
 var flags = {};
 
-var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+var mobile = /ipad|iphone|ipod|android/.test(navigator.userAgent.toLowerCase()) && !window.MSStream;
 
 init();
 animate();
@@ -45,7 +45,7 @@ window.onload = function () {
     gamewin = document.getElementById('gamewin');
     timebox = document.getElementById('time');
 
-    if (iOS) setupTouches();
+    if (mobile) setupTouches();
 
     warp(floor1, floor1Assets, 3, 6, 0);
     //warp(danroom, danroomAssets, 2, 4, 0);
